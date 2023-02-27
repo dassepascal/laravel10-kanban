@@ -1,0 +1,26 @@
+model task
+migrate
+
+Taskcontroller
+
+composer require laravel/breeze --dev
+php artisan breeze:install
+npm install
+
+ide
+helper
+composer require --dev barryvdh/laravel-ide-helper
+You can configure your composer.json to do this each time you update your dependencies:
+
+"scripts": {
+    "post-update-cmd": [
+        "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+        "@php artisan ide-helper:generate",
+        "@php artisan ide-helper:meta"
+    ]
+},
+
+composer update
+mettre dans gitignore
+_ide_helper.php
+.phpstorm.meta.php
