@@ -3,14 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use App\Enums\TasksStatus;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
+// enum Status : int
+//  {
+//    case PENDING = 0;
+//    case IN_PROGRESS = 1;
+//       case DONE = 2;
+// }
 
 class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
-        return view('tasks.index', compact('tasks'));
+        $total = Task::count();
+        $doneTasks = Task::where('status', TasksStatus::DONE)->get();
+        $pendingTasks = Task::where('status', TasksStatus::PENDING)->get();
+        return view('tasks.index', compact(  'total','doneTasks', 'pendingTasks'));
+    }
+
+    //store
+    public function store(StoreTaskRequest $request)
+    {
+
+
+        Task::create($request->validated());
+
+        return redirect()->route('tasks.index');
+    }
+    //edit
+    public function edit(Task $task)
+    {
+        return view('tasks.edit', compact('task'));
+    }
+    //destroy
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('tasks.index');
+    }
+    //update
+    public function update(UpdateTaskRequest $request, Task $task)
+    {
+
+
+        $task->update($request->validated());
+
+        return redirect()->route('tasks.index');
     }
 
 }

@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('description');
-            
-            $table->timestamps();
+        Schema::table('tasks', function (Blueprint $table) {
+            // add status column
+            $table->tinyInteger('status')->default(0);
         });
     }
 
@@ -25,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::table('tasks', function (Blueprint $table) {
+            // remove status column
+            $table->dropColumn('status');
+        });
     }
 };

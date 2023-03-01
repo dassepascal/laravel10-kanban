@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.input-text {
+    @apply border border-gray-300 rounded-lg py-2 px-4;
+}
+
+.btn{
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+}
+.alert
+{
+    @apply bg-slate-400 text-white font-bold py-2 rounded-lg mb-4;
+}
+.alert-danger{
+    @apply bg-red-500 text-white font-bold py-2 ;
+}
+.btn-danger
+{
+    @apply bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded;
+}
