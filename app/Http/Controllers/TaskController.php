@@ -19,9 +19,10 @@ class TaskController extends Controller
     public function index()
     {
         $total = Task::count();
-        $doneTasks = Task::where('status', TasksStatus::DONE)->get();
-        $pendingTasks = Task::where('status', TasksStatus::PENDING)->get();
-        return view('tasks.index', compact(  'total','doneTasks', 'pendingTasks'));
+        $doneTasks = Task::done()->get();
+        $inProgressTasks = Task::inProgress()->get();
+        $pendingTasks = Task::pending()->get();
+        return view('tasks.index', compact(  'total','doneTasks', 'inProgressTasks','pendingTasks'));
     }
 
     //store

@@ -19,7 +19,7 @@
                         </ul>
                     </div>
                     @endif
-                    {{-- createanewtask --}}
+                    {{-- create a new task --}}
                     <form action="#" method="POST">
                         @csrf
                         <div class="grid gap-y-3">
@@ -44,38 +44,46 @@
 
             {{-- show task list --}}
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                <div class="p-6 bg-white border-b border-gray-200">
+            {{-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg "> --}}
+
                     {{-- count task --}}
-                    <h4 class="font-bold uppercase">Total tasks {{ $total }} s.</h4>
+                    <h4 class="font-bold uppercase text-yellow-50">Total tasks {{ $total }} s.</h4>
 
                     <div class="flex gap-x-3">
-                        {{-- task list : blacklog  Tasks--}}
-                        <div class="grid gap-2 ">
-                            <h4 class="font-bold uppercase">Blacklog tasks {{ $pendingTasks->count() }} s.</h4>
+                        {{-- task list : blacklog --}}
+                        <x-task-list>
+                            <h4 class="font-bold ">Blacklog tasks {{ $pendingTasks->count() }} s.</h4>
                             @forelse ($pendingTasks as $task)
                             <x-task :task="$task" />
                             @empty
                             <p>no task</p>
                             @endforelse
-                        </div>
-                        {{-- task list : Done tasks--}}
-                        <div class="grid gap-2 ">
-                            <h4 class="font-bold uppercase">Done tasks {{ $doneTasks->count() }} s.</h4>
+                        </x-task-list>
+                        {{-- task list : in progress --}}
+                        <x-task-list>
+                            <h4 class="font-bold ">In Progress tasks {{ $inProgressTasks->count() }} s.</h4>
+                            @forelse ($inProgressTasks as $task)
+                            <x-task :task="$task" />
+                            @empty
+                            <p>no task</p>
+                            @endforelse
+
+                        </x-task-list>
+                        {{-- task list : done Tasks--}}
+                        <x-task-list>
+                            <h4 class="font-bold ">Done tasks {{ $doneTasks->count() }} s.</h4>
                             @forelse ($doneTasks as $task)
                             <x-task :task="$task" />
                             @empty
                             <p>no task</p>
                             @endforelse
-                        </div>
+
+                        </x-task-list>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
-
     </div>
+
 
 </x-app-layout>
